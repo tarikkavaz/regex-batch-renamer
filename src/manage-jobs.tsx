@@ -6,6 +6,7 @@ import { initializePredefinedJobs } from "./utils/predefined-jobs";
 import CreateJobForm from "./components/CreateJobForm";
 import EditJobForm from "./components/EditJobForm";
 import JobDetailView from "./components/JobDetailView";
+import { showFailureToast } from "@raycast/utils";
 
 export default function ManageJobs() {
   const [jobs, setJobs] = useState<RenameJob[]>([]);
@@ -27,6 +28,8 @@ export default function ManageJobs() {
         title: "Failed to load jobs",
         message: error instanceof Error ? error.message : "Unknown error",
       });
+
+      showFailureToast(error, { title: "Failed to load jobs" });
     } finally {
       setIsLoading(false);
     }
